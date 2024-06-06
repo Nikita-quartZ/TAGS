@@ -1,0 +1,47 @@
+@import "vue-select/dist/vue-select.css";
+@import "fonts.scss";
+
+* {
+  font-family: 'SF UI Text'
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  padding-left: 0;
+}
+
+p {
+  margin: 0;
+}
+
+a.disabled {
+  color: #000;
+}
+
+.container {
+  width: 100%;
+  max-width: 1518px;
+  padding: 0 15px;
+  margin: 0 auto;
+}
+
+.vs__dropdown-toggle {
+  border: none;
+  background-color: #F2F2F2;
+  height: 40px;
+  border-radius: 0;
+}
+
+.vs__search, .vs__search:focus {
+  padding-left: 14px;
+  font-size: 14px;
+  line-height: 18px;
+}
+
+.vs__open-indicator {
+  fill: #000;
+}
