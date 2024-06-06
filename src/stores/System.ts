@@ -1,41 +1,15 @@
 import { defineStore } from 'pinia'
 import items from '@/assets/items.json'
 import materials from '@/assets/materials.json'
+import type { State, Filters } from '@/types/System'
 
-interface Card {
-  id: string,
-  name: string,
-  code: string | null,
-  price: {
-    old_price: number | null,
-    current_price: number,
-  },
-  image: {
-    url: string
-  },
-  material: number
-}
-
-interface Material {
-  id: number,
-  name: string
-}
-
-interface Filters {
-  label: string,
-  value: number | null
-}
-
-interface State {
-  list: Card[],
-  total: number,
-  materials: Material[]
-}
 
 export const useSystemStore = defineStore({
   id: 'System',
   state: (): State => ({
     list: [],
+    bucket: [],
+    likes: [],
     total: items.length,
     materials: materials.map((item) => ({
       ...item,
@@ -55,19 +29,41 @@ export const useSystemStore = defineStore({
 
       return this.list;
     },
-    // async toggleBasket(id: number) {
-    //   const data = localStorage.getItem('bucket')
-    //   if (data) {
-    //     const newData: number[] = JSON.parse(data)
-    //     if (newData.includes(id)) {
-    //       newData.filter((item) => item !== id)
-    //     } else {
-    //       newData
-    //     }
-    //   } else {
-    //     localStorage.setItem('bucket', JSON.stringify(id))
-    //   }
-      
-    // },
+    async toggleBasket(id: number) {
+      const data = localStorage.getItem('bucket')
+
+      if (data) {
+        let newData: number[] = JSON.parse(data)
+        if (newData.includes(id)) {
+          newData = newData.filter((item) => item !== id)
+        } else {
+          newData.push(id)
+        }
+        localStorage.setItem('bucket', JSON.stringify(newData))
+      } else {
+        localStorage.setItem('bucket', JSON.stringify([id]))
+      }
+
+      const updateData = localStorage.getItem('bucket')
+      if (updateData) this.bucket = JSON.parse(updateData)
+    },
+    async toggleLike(id: number) {
+      const data = localStorage.getItem('likes')
+
+      if (data) {
+        let newData: number[] = JSON.parse(data)
+        if (newData.includes(id)) {
+          newData = newData.filter((item) => item !== id)
+        } else {
+          newData.push(id)
+        }
+        localStorage.setItem('likes', JSON.stringify(newData))
+      } else {
+        localStorage.setItem('likes', JSON.stringify([id]))
+      }
+
+      const updateData = localStorage.getItem('likes')
+      if (updateData) this.likes = JSON.parse(updateData)
+    },
   },
 });

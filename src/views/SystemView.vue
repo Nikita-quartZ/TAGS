@@ -1,21 +1,11 @@
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue'
 import { useSystemStore } from '@/stores/System'
+import type { Filter } from '@/types/System'
 import SystemFilter from '@/components/SystemFilter.vue'
 import SystemCard from '@/components/SystemCard.vue'
 
 const store = useSystemStore()
-
-interface Option {
-  label: string,
-  code: number,
-}
-
-interface Filter {
-  label: string,
-  value: number | null
-  options: Option[]
-}
 
 const filteredMaterials = store.materials.map((item) => ({
   label: item.name,
@@ -54,6 +44,11 @@ watch(filterData, (newValue) => {
 })
 
 store.getCards()
+
+const updateBucket = localStorage.getItem('bucket')
+if (updateBucket) store.bucket = JSON.parse(updateBucket)
+const updateLikes = localStorage.getItem('likes')
+if (updateLikes) store.likes = JSON.parse(updateLikes)
 </script>
 
 <template>

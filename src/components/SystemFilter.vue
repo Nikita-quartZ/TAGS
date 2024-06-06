@@ -1,17 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import type { PropType } from 'vue';
-
-interface Option {
-  label: string,
-  code: number,
-}
-
-interface Filter {
-  label: string
-  value: string,
-  options: Option[]
-}
+import type { Option, Filter } from '@/types/System'
 
 const emit = defineEmits(['update:modelValue', 'update'])
 
@@ -37,17 +27,27 @@ const filters = computed({
 
 <template>
   <div class="system__filters">
-    <div v-for="filter in filters" :key="filter.label" class="system__filter-block">
+    <div
+      v-for="filter in filters"
+      :key="filter.label"
+      class="system__filter-block"
+    >
       <p class="system__filters-title">
         {{ filter.label }}
       </p>
-      <v-select v-model="filter.value" :reduce="(label: Option) => label.code" value="code" :options="filter.options" class="system__filters-select" :placeholder="filter.label"/>
+      <v-select
+        v-model="filter.value"
+        :reduce="(label: Option) => label.code"
+        value="code"
+        :options="filter.options"
+        class="system__filters-select"
+        :placeholder="filter.label"
+      />
     </div>
   </div>
 </template>
 
 <style scoped lang="scss">
-
 .system__filters {
   display: flex;
 }
