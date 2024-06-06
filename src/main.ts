@@ -3,6 +3,7 @@ import './assets/main.scss'
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 
+// @ts-ignore
 import VueSelect from "vue-select";
 
 import App from './App.vue'
