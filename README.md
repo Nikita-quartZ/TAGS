@@ -2,7 +2,7 @@
 
 
 ## Link
-https://tags-git-main-flashfly15gmailcoms-projects.vercel.app/
+https://nikita-quartz.github.io/
 
 
 ## Project Setup
